@@ -1,0 +1,351 @@
+/* Spreadsheet Grid Styles - Google Sheets inspired */
+
+.spreadsheet-container {
+  position: relative;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 13px;
+  height: 600px;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Main grid structure */
+.spreadsheet-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: max-content;
+  table-layout: fixed;
+}
+
+/* Header row */
+.spreadsheet-header {
+  background-color: #f8f9fa;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 20;
+  height: 26px;
+  user-select: none;
+}
+
+.spreadsheet-header th {
+  font-weight: 500;
+  font-size: 12px;
+  color: #5f6368;
+  text-align: center;
+  padding: 0;
+  border-right: 1px solid #e0e0e0;
+  border-bottom: 1px solid #c0c0c0;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-color: #f8f9fa;
+  height: 26px;
+  transition: background-color 0.1s ease;
+}
+
+/* Column headers */
+.spreadsheet-column-header {
+  min-width: 120px;
+  width: 120px;
+  max-width: 120px;
+}
+
+.spreadsheet-column-header:hover {
+  background-color: #f1f3f4 !important;
+}
+
+.spreadsheet-column-header.selected {
+  background-color: #e8eaed;
+}
+
+/* Corner cell (top-left) */
+.spreadsheet-corner-cell {
+  position: sticky !important;
+  left: 0 !important;
+  top: 0 !important;
+  z-index: 30 !important;
+  width: 50px !important;
+  min-width: 50px !important;
+  max-width: 50px !important;
+  background-color: #f8f9fa !important;
+  border-right: 1px solid #c0c0c0 !important;
+  border-bottom: 1px solid #c0c0c0 !important;
+}
+
+.spreadsheet-corner-cell:hover {
+  background-color: #f1f3f4 !important;
+}
+
+/* Row headers */
+.spreadsheet-row-header {
+  position: sticky !important;
+  left: 0 !important;
+  z-index: 15 !important;
+  background-color: #f8f9fa !important;
+  width: 50px !important;
+  min-width: 50px !important;
+  max-width: 50px !important;
+  height: 26px !important;
+  padding: 0 !important;
+  border-right: 1px solid #c0c0c0 !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: #5f6368 !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  user-select: none !important;
+}
+
+.spreadsheet-row-header.selected {
+  background-color: #e8eaed !important;
+}
+
+.spreadsheet-row-header:hover {
+  background-color: #f1f3f4 !important;
+}
+
+/* Data cells */
+.spreadsheet-data-cell {
+  border-right: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  min-width: 120px;
+  width: 120px;
+  max-width: 120px;
+  height: 26px;
+  padding: 0;
+  cursor: cell;
+  position: relative;
+  background-color: #ffffff;
+  transition: background-color 0.1s ease;
+}
+
+/* Cell alternating colors */
+/* .spreadsheet-row:nth-child(even) .spreadsheet-data-cell {
+  background-color: #ffffff;
+} */
+
+/* .spreadsheet-row:nth-child(odd) .spreadsheet-data-cell {
+  background-color: #ffffff;
+} */
+
+/* Cell hover state */
+.spreadsheet-data-cell:hover {
+  background-color: #f8f9fa;
+}
+
+/* Cell selection states */
+.spreadsheet-data-cell.selected {
+  background-color: rgba(26, 115, 232, 0.12) !important;
+  border: 1px solid rgba(26, 115, 232, 0.5);
+  z-index: 10;
+}
+
+.spreadsheet-data-cell.highlighted {
+  background-color: rgba(251, 192, 45, 0.2) !important;
+  border: 1px solid rgba(251, 192, 45, 0.5);
+  z-index: 11;
+}
+
+.spreadsheet-data-cell:focus-visible {
+  outline: none
+}
+
+/* Cell content container */
+.cell-content {
+  padding: 2px 6px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  line-height: 22px;
+}
+
+.cell-content.wrap {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.cell-editor-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  cursor: text;
+}
+
+/* Cell editing state */
+.cell-editor {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: calc(100% + 2px);
+  min-width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  border: 2px solid #1a73e8;
+  padding: 2px 6px;
+  background-color: #fff;
+  z-index: 21;
+  resize: none;
+  font-size: 13px;
+  line-height: 22px;
+  font-family: inherit;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: width 0.15s ease;
+  cursor: text;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.cell-editor::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+
+/* Animation for highlighting cells */
+@keyframes cell-pulse {
+  0% { background-color: rgba(251, 192, 45, 0.2); }
+  50% { background-color: rgba(251, 192, 45, 0.4); }
+  100% { background-color: rgba(251, 192, 45, 0.2); }
+}
+
+.pulse {
+  animation: cell-pulse 0.8s ease-in-out;
+}
+
+/* Selection styling */
+.selection-highlight {
+  position: absolute;
+  pointer-events: none;
+  z-index: 9;
+  background-color: rgba(26, 115, 232, 0.12);
+  border: 2px solid rgba(26, 115, 232, 0.5);
+}
+
+/* Frozen panes border styling */
+.frozen-border-horizontal {
+  position: absolute;
+  top: 26px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #c0c0c0;
+  z-index: 25;
+  pointer-events: none;
+}
+
+.frozen-border-vertical {
+  position: absolute;
+  top: 0;
+  left: 50px;
+  width: 1px;
+  bottom: 0;
+  background-color: #c0c0c0;
+  z-index: 25;
+  pointer-events: none;
+}
+
+/* Spacer rows - to maintain correct scroll height */
+.spacer-row td {
+  height: var(--spacer-height);
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  pointer-events: none;
+}
+
+/* Context menu styling */
+.spreadsheet-context-menu {
+  position: fixed;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 1000;
+  min-width: 180px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.spreadsheet-context-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+}
+
+.spreadsheet-context-menu li {
+  padding: 6px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #202124;
+}
+
+.spreadsheet-context-menu li:hover {
+  background-color: #f1f3f4;
+}
+
+.spreadsheet-context-menu .separator {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 4px 0;
+  padding: 0;
+}
+
+/* Additional performance optimizations */
+.spreadsheet-container * {
+  box-sizing: border-box;
+  backface-visibility: hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide scrollbar styling but keep functionality */
+.spreadsheet-container::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.spreadsheet-container::-webkit-scrollbar-track {
+  background-color: #f1f3f4;
+}
+
+.spreadsheet-container::-webkit-scrollbar-thumb {
+  background-color: #dadce0;
+  border-radius: 6px;
+  border: 3px solid #f1f3f4;
+}
+
+.spreadsheet-container::-webkit-scrollbar-corner {
+  background-color: #f8f9fa;
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}

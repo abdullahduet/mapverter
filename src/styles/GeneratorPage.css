@@ -1,0 +1,30 @@
+.scroll-container {
+  max-width: 1000px;
+  overflow-x: scroll;
+  border: 1px solid #666;
+  scrollbar-gutter: stable both-edges;
+  white-space: nowrap;
+  padding: 15px 0 15px 0;
+}
+
+.scroll-container::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-800: #1e293b;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-gray-800: #1e293b;
+  }
+}

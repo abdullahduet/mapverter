@@ -1,0 +1,137 @@
+/* Add these styles to your project's CSS */
+
+.virtual-data-grid {
+    /* Grid container */
+    --grid-border-color: #cbd5e0;
+    --grid-header-bg: #f8fafc;
+    --grid-header-border: #a0aec0;
+    --grid-cell-border: #e2e8f0;
+    --grid-cell-bg-even: #ffffff;
+    --grid-cell-bg-odd: #f8fafc;
+    --grid-cell-selected: rgba(66, 153, 225, 0.15);
+    --grid-cell-selected-border: #4299e1;
+    --grid-header-text: #2d3748;
+    --grid-shadow-color: rgba(0, 0, 0, 0.1);
+    
+    box-shadow: 0 1px 3px 0 var(--grid-shadow-color);
+    border-radius: 4px;
+    overflow: hidden;
+    user-select: none;
+  }
+  
+  /* For the fixed corner */
+  .corner-element {
+    position: absolute;
+    z-index: 15;
+    background-color: var(--grid-header-bg);
+    border-right: 1px solid var(--grid-header-border) !important;
+    border-bottom: 2px solid var(--grid-header-border) !important;
+    box-shadow: 2px 2px 5px var(--grid-shadow-color);
+  }
+  
+  /* Header cells */
+  .header-cell {
+    font-weight: 600 !important;
+    color: var(--grid-header-text);
+    background-color: var(--grid-header-bg) !important;
+    border-right: 1px solid var(--grid-header-border) !important;
+    border-bottom: 2px solid var(--grid-header-border) !important;
+  }
+  
+  .frozen-header-cell {
+    font-weight: 600 !important;
+    color: var(--grid-header-text);
+    background-color: var(--grid-header-bg) !important;
+    border-right: 1px solid var(--grid-header-border) !important;
+    border-bottom: 2px solid var(--grid-header-border) !important;
+  }
+  
+  /* Footer shadow to ensure bottom borders are visible */
+  .virtual-data-grid::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--grid-cell-border);
+    z-index: 15;
+  }
+  
+  /* Right shadow to ensure right borders are visible */
+  .virtual-data-grid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: var(--grid-cell-border);
+    z-index: 15;
+  }
+  
+  /* Make frozen columns stand out better */
+  .frozen-columns-area {
+    background-color: var(--grid-cell-bg-even);
+    border-right: 2px solid var(--grid-header-border) !important;
+    box-shadow: 2px 0 6px var(--grid-shadow-color) !important;
+  }
+  
+  /* Cell styling */
+  .grid-cell {
+    border-right: 1px solid var(--grid-cell-border) !important;
+    border-bottom: 1px solid var(--grid-cell-border) !important;
+    cursor: cell;
+  }
+  
+  /* Cell selection highlight */
+  .selected-cell {
+    background-color: var(--grid-cell-selected) !important;
+    outline: 2px solid var(--grid-cell-selected-border) !important;
+    z-index: 4;
+  }
+  
+  /* Cell editing style */
+  .cell-editor {
+    box-shadow: 0 0 0 2px var(--grid-cell-selected-border);
+    background-color: white;
+    z-index: 5;
+  }
+  
+  /* Scrollbar styling for better appearance */
+  .main-grid-area::-webkit-scrollbar {
+    width: 10px;
+    height: a10px;
+  }
+  
+  .main-grid-area::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .main-grid-area::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 5px;
+  }
+  
+  .main-grid-area::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+  }
+  
+  /* Row number column styling */
+  .frozen-cell[data-is-row-number="true"] {
+    background-color: var(--grid-header-bg) !important;
+    color: var(--grid-header-text);
+    font-weight: 500;
+    text-align: center;
+  }
+  
+  /* For focused state */
+  .excel-like-grid:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.4);
+  }
+  
+  /* Frozen cells hover effect */
+  .frozen-cell:hover, .grid-cell:hover {
+    background-color: rgba(226, 232, 240, 0.4);
+  }

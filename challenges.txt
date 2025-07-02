@@ -1,0 +1,5 @@
+1. Mouse Hoverable Menu
+2. Virtual Rendering
+3. hard to continueusly focus on
+4. Row/Column freeze
+5. context menu

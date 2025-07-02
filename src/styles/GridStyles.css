@@ -1,0 +1,222 @@
+/* Excel-like Grid Styles */
+
+.excel-grid-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    user-select: none;
+  }
+  
+  .excel-grid-viewport {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    background: white;
+  }
+  
+  /* Corner cell (top-left) */
+  .excel-grid-corner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 30;
+    background-color: #f1f1f1;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #666;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Header row (frozen top) */
+  .excel-grid-header-row {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    z-index: 20;
+    background-color: #f1f1f1;
+    will-change: transform;
+  }
+  
+  .excel-grid-header-cell {
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    background-color: #f1f1f1;
+  }
+  
+  .excel-grid-header-cell:hover {
+    background-color: #e5e5e5;
+  }
+  
+  .excel-grid-header-cell.selected {
+    background-color: #e6f7ff;
+  }
+  
+  /* First column (frozen left) */
+  .excel-grid-first-column {
+    position: absolute;
+    left: 0;
+    z-index: 20;
+    background-color: #f1f1f1;
+    will-change: transform;
+  }
+  
+  .excel-grid-row-header {
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #666;
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+  .excel-grid-row-header:hover {
+    background-color: #e5e5e5;
+  }
+  
+  .excel-grid-row-header.selected {
+    background-color: #e6f7ff;
+  }
+  
+  /* Main grid content */
+  .excel-grid-content {
+    position: absolute;
+    will-change: transform;
+  }
+  
+  .excel-grid-row {
+    position: absolute;
+    width: 100%;
+    height: 35px;
+  }
+  
+  .excel-grid-cell {
+    position: absolute;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    background-color: white;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    cursor: cell;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .excel-grid-cell:nth-child(odd) {
+    background-color: #fafafa;
+  }
+  
+  .excel-grid-cell:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .excel-grid-cell.selected {
+    background-color: rgba(66, 153, 225, 0.15);
+    outline: 2px solid rgba(66, 153, 225, 0.5);
+    z-index: 10;
+  }
+  
+  .excel-grid-cell.highlighted {
+    background-color: rgba(255, 201, 40, 0.2);
+    outline: 2px solid rgba(255, 201, 40, 0.6);
+    z-index: 11;
+  }
+  
+  /* Custom scrollbars */
+  .excel-grid-scrollbar {
+    position: absolute;
+    background-color: #f1f1f1;
+    border-radius: 6px;
+    z-index: 40;
+  }
+  
+  .excel-grid-scrollbar.vertical {
+    top: 10px;
+    right: 10px;
+    width: 8px;
+    bottom: 10px;
+  }
+  
+  .excel-grid-scrollbar.horizontal {
+    left: 10px;
+    right: 10px;
+    height: 8px;
+    bottom: 10px;
+  }
+  
+  .excel-grid-scrollbar-thumb {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .excel-grid-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  
+  .excel-grid-scrollbar.vertical .excel-grid-scrollbar-thumb {
+    width: 8px;
+    min-height: 30px;
+  }
+  
+  .excel-grid-scrollbar.horizontal .excel-grid-scrollbar-thumb {
+    height: 8px;
+    min-width: 30px;
+  }
+  
+  /* Animation for scrolling */
+  .excel-grid-viewport,
+  .excel-grid-header-row,
+  .excel-grid-first-column,
+  .excel-grid-content {
+    transition: transform 0.05s ease-out;
+  }
+  
+  /* During active scrolling, disable transition for better performance */
+  .excel-grid-scrolling .excel-grid-header-row,
+  .excel-grid-scrolling .excel-grid-first-column,
+  .excel-grid-scrolling .excel-grid-content {
+    transition: none;
+  }
+  
+  /* Cell editor */
+  .excel-grid-cell-editor {
+    position: absolute;
+    z-index: 100;
+    background: white;
+    border: 2px solid #4299e1;
+    margin: -1px;
+    padding: 0 7px;
+    outline: none;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+  }

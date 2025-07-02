@@ -1,0 +1,193 @@
+/* Main container styles */
+.editable-table-container {
+  position: relative;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  overflow: auto;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 14px;
+  height: '600px',
+  /* will-change: transform; // Performance optimization */
+  /* contain: content; // Containment for performance */
+}
+
+/* Table styles */
+.editable-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: max-content;
+  min-width: 100%;
+  table-layout: fixed; /* Force fixed table layout for better performance */
+}
+
+/* Header row styles */
+.editable-header th {
+  position: sticky !important; /* Force stickiness */
+  top: 0 !important; /* Force top position */
+  z-index: 20;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  font-weight: 600;
+  padding: 8px;
+  text-align: left;
+  min-width: 150px;
+  max-width: 150px;
+  height: 35px;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  /* transform: translateZ(0); Hardware acceleration */
+}
+
+/* Corner cell (top-left) */
+.editable-corner-cell {
+  left: 0 !important;
+  z-index: 30 !important;
+  width: 50px;
+  min-width: 50px !important;
+  max-width: 50px !important;
+  text-align: center !important;
+  /* transform: translateZ(0); Hardware acceleration */
+}
+
+/* Row header cells */
+.editable-row-header {
+  position: sticky !important;
+  left: 0 !important;
+  z-index: 15;
+  background-color: #f1f1f1 !important;
+  width: 50px;
+  min-width: 50px;
+  max-width: 50px;
+  height: 35px;
+  text-align: center;
+  font-weight: 600;
+  /* transform: translateZ(0); Hardware acceleration */
+}
+
+/* Data cells */
+.editable-data-cell {
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: #f1f1f1 !important;
+  min-width: 150px;
+  width: 150px;
+  max-width: 150px;
+  height: 35px;
+  padding: 0;
+  cursor: cell;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Alternating row colors */
+.editable-table tr:nth-child(even) .editable-data-cell {
+  background-color: #f9f9f9;
+}
+
+.editable-table tr:nth-child(odd) .editable-data-cell {
+  background-color: #ffffff;
+}
+
+/* Cell content styles */
+.excel-cell-content {
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Text wrap mode */
+.excel-cell-content.wrap {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.excel-cell-content.nowrap {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Selected cell styles */
+.editable-data-cell.selected {
+  background-color: rgba(66, 153, 225, 0.15) !important;
+  outline: 2px solid rgba(66, 153, 225, 0.5);
+  z-index: 10;
+  position: relative;
+}
+
+/* Highlighted cell styles */
+.editable-data-cell.highlighted {
+  background-color: rgba(255, 201, 40, 0.2) !important;
+  outline: 2px solid rgba(255, 201, 40, 0.6);
+  z-index: 11;
+  position: relative;
+}
+
+/* Cell editor */
+.excel-cell-editor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 4px;
+  font-family: inherit;
+  font-size: inherit;
+  resize: none;
+  outline: 2px solid #3182ce;
+  background-color: #fff;
+  z-index: 20;
+}
+
+/* Ensure proper stacking context for sticky elements */
+thead, tbody, tr, th, td {
+  position: relative;
+}
+
+/* Pulse animation for find/replace highlighting */
+@keyframes cell-pulse {
+  0% { background-color: rgba(255, 201, 40, 0.2); }
+  50% { background-color: rgba(255, 201, 40, 0.5); }
+  100% { background-color: rgba(255, 201, 40, 0.2); }
+}
+
+.editable-data-cell.pulse {
+  animation: cell-pulse 1s ease-in-out;
+}
+
+/* Fix for overlapping borders */
+.excel-vertical-border {
+  position: absolute !important;
+  top: 35px !important;
+  left: 50px !important;
+  width: 1px !important;
+  bottom: 0 !important;
+  background-color: #ddd !important;
+  z-index: 16 !important;
+  pointer-events: none !important;
+}
+
+.excel-horizontal-border {
+  position: absolute !important;
+  top: 35px !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 1px !important;
+  background-color: #ddd !important;
+  z-index: 21 !important;
+  pointer-events: none !important;
+}
+
+/* Spacer rows - prevent them from causing layout shifts */
+.editable-table tr.spacer-row td {
+  padding: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+  height: var(--spacer-height) !important;
+}
