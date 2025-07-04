@@ -68,8 +68,8 @@ const SEOHead = ({
       </script>
 
       {/* Additional Tags */}
-      <meta name="application-name" content="mapverter" />
-      <meta name="apple-mobile-web-app-title" content="mapverter" />
+      <meta name="application-name" content="Mapverter" />
+      <meta name="apple-mobile-web-app-title" content="Mapverter" />
       <meta name="theme-color" content="#2c5282" />
     </Helmet>
   );

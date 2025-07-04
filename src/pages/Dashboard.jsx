@@ -39,7 +39,7 @@ const Dashboard = () => {
   return (
     <>
       <SEOHead 
-        title="Dashboard - mapverter"
+        title="Dashboard - Mapverter"
         description="Manage your CSV templates, mapping configurations, and operation history."
         keywords="csv dashboard, saved templates, mapping history"
       />
