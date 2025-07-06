@@ -109,7 +109,7 @@ const ToolDropdown = ({ title, items }) => {
       ref={dropdownRef}
     >
       <button
-        className="font-medium text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-blue-400 transition-colors flex items-center"
+        className="font-medium text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-neutral-100 transition-colors flex items-center"
         onMouseEnter={() => { setIsOpen(true); document.addEventListener('mousemove', handleClickOutside); }}
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
@@ -197,7 +197,6 @@ const Navbar = () => {
   const user = useAppSelector(selectUser);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -221,31 +220,31 @@ const Navbar = () => {
     csv: {
       title: 'CSV Tools',
       items: [
-        { name: 'CSV Generator', path: '/csv/generate', description: 'Create test data' },
+        { name: 'CSV Generator', path: '/csv/generate', description: 'Create custom CSV files with sample data' },
+        { name: 'CSV Mapper', path: '/csv/map', description: 'Transform CSV structure' },
         { name: 'CSV Converter', path: '/csv/convert', description: 'Convert to other formats' },
-        { name: 'CSV Mapper', path: '/csv/map', description: 'Transform structure' },
-        { name: 'CSV Validator', path: '/csv/validate', description: 'Validate data' },
+        { name: 'CSV Validator', path: '/csv/validate', description: 'Check CSV data integrity' },
         { name: 'CSV Editor', path: '/csv/visualize', description: 'Edit & visualize' }
       ]
     },
     json: {
       title: 'JSON Tools',
       items: [
-        { name: 'JSON Formatter', path: '/json/format', description: 'Beautify JSON' },
-        { name: 'JSON Validator', path: '/json/validate', description: 'Validate structure' },
-        { name: 'JSON to CSV', path: '/json/to-csv', description: 'Convert to CSV' },
-        { name: 'JSON Mapper', path: '/json/map', description: 'Transform schema' },
-        { name: 'JSON Editor', path: '/json/edit', description: 'Visual editor' }
+        { name: 'JSON Generator', path: '/json/generate', description: 'Create JSON with structured data' },
+        { name: 'JSON Mapper', path: '/json/map', description: 'Transform JSON schema' },
+        { name: 'JSON Converter', path: '/json/convert', description: 'Convert to other formats' },
+        { name: 'JSON Formatter', path: '/json/format', description: 'Validate JSON schema & Beautify JSON' },
+        { name: 'JSON Editor', path: '/json/visualize', description: 'Visual editor' }
       ]
     },
     edi: {
       title: 'EDI Tools',
       items: [
-        { name: 'EDI Parser', path: '/edi/parse', description: 'Parse EDI files' },
-        { name: 'EDI to JSON', path: '/edi/to-json', description: 'Convert to JSON' },
-        { name: 'EDI Validator', path: '/edi/validate', description: 'Validate X12/EDIFACT' },
+        { name: 'EDI Generator', path: '/edi/generate', description: 'Create EDI documents' },
         { name: 'EDI Mapper', path: '/edi/map', description: 'Map EDI segments' },
-        { name: 'EDI Generator', path: '/edi/generate', description: 'Generate EDI' }
+        { name: 'EDI Converter', path: '/edi/convert', description: 'Convert to other formats' },
+        { name: 'EDI Validator', path: '/edi/validate', description: 'Validate EDI compliance' },
+        { name: 'EDI Parser', path: '/edi/parse', description: 'Parse EDI files' }
       ]
     }
   };
@@ -274,6 +273,8 @@ const Navbar = () => {
         <button
           className="md:hidden p-2 rounded-lg text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={mobileMenuOpen}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {mobileMenuOpen ? (
