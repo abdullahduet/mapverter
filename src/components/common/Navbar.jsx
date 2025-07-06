@@ -12,25 +12,25 @@ const FeatureDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
-    
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-  
+
   const handleNavigate = (path) => {
     setIsOpen(false);
     navigate(path);
   };
-  
+
   return (
     <div className="relative" ref={dropdownRef}>
       <button
@@ -54,14 +54,14 @@ const FeatureDropdown = () => {
           />
         </svg>
       </button>
-      
+
       {isOpen && (
-        <div 
+        <div
           className="absolute left-0 mt-2 w-64 rounded-lg shadow-lg bg-white dark:bg-neutral-800 ring-1 ring-black ring-opacity-5 z-50 py-1"
           onMouseLeave={() => setIsOpen(false)}
         >
           {features.map((feature) => (
-            <div 
+            <div
               key={feature.id}
               className="px-4 py-3 hover:bg-neutral-50 dark:hover:bg-neutral-700 cursor-pointer border-b border-neutral-100 dark:border-neutral-700 last:border-b-0 transition-colors"
               onClick={() => handleNavigate(`/features/${feature.id}`)}
@@ -76,6 +76,80 @@ const FeatureDropdown = () => {
   );
 };
 
+// Tool dropdown component
+const ToolDropdown = ({ title, items }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+
+    const dropdownRefClientRect = dropdownRef.current && dropdownRef.current.getBoundingClientRect();
+    if (!dropdownRefClientRect) return;
+    const isMouseInsideDropdownRef =
+      event.clientX >= dropdownRefClientRect.left &&
+      event.clientX <= dropdownRefClientRect.right &&
+      event.clientY >= dropdownRefClientRect.top &&
+      event.clientY <= (dropdownRefClientRect.bottom + dropdownRefClientRect.height * 0.8);
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target) && !(isMouseInsideDropdownRef)) {
+      setIsOpen(false);
+      document.removeEventListener('mousemove', handleClickOutside);
+    }
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    return () => {
+      document.removeEventListener('mousemove', handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div
+      className="relative"
+      ref={dropdownRef}
+    >
+      <button
+        className="font-medium text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-blue-400 transition-colors flex items-center"
+        onMouseEnter={() => { setIsOpen(true); document.addEventListener('mousemove', handleClickOutside); }}
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+      >
+        {title}
+        <svg
+          className={`ml-1 h-5 w-5 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-neutral-800 rounded-lg shadow-lg border border-neutral-200 dark:border-neutral-700 py-2 z-50"
+        >
+          {items.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className="block px-4 py-3 hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              <div className="font-medium text-neutral-900 dark:text-neutral-100">{item.name}</div>
+              <div className="text-sm text-neutral-600 dark:text-neutral-400">{item.description}</div>
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
 // Theme toggle using global function
 const ThemeToggle = () => {
   const [isDark, setIsDark] = useState(false);
@@ -83,23 +157,19 @@ const ThemeToggle = () => {
   useEffect(() => {
     // Initial check
     setIsDark(document.documentElement.classList.contains('dark'));
-    
+
     // Listen for theme changes
     const handleThemeChange = () => {
       setIsDark(document.documentElement.classList.contains('dark'));
     };
-    
+
     window.addEventListener('theme-changed', handleThemeChange);
     return () => window.removeEventListener('theme-changed', handleThemeChange);
   }, []);
 
   const handleClick = () => {
-    // Use global function from index.html
-    console.log('Button clicked');
-    console.log('toggleTheme exists:', !!window.toggleTheme);
     if (window.toggleTheme) {
       const newIsDark = window.toggleTheme();
-      console.log('Theme toggled to:', newIsDark ? 'dark' : 'light');
       setIsDark(newIsDark);
     }
   };
@@ -127,45 +197,79 @@ const Navbar = () => {
   const user = useAppSelector(selectUser);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+  const [openDropdown, setOpenDropdown] = useState(null);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-  
+
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Tools', path: '/tools' },
+    { name: 'About', path: '/about' },
     { name: 'Templates', path: '/templates' },
+    { name: 'Pricing', path: '/pricing' },
   ];
 
+  const toolMenus = {
+    csv: {
+      title: 'CSV Tools',
+      items: [
+        { name: 'CSV Generator', path: '/csv/generate', description: 'Create test data' },
+        { name: 'CSV Converter', path: '/csv/convert', description: 'Convert to other formats' },
+        { name: 'CSV Mapper', path: '/csv/map', description: 'Transform structure' },
+        { name: 'CSV Validator', path: '/csv/validate', description: 'Validate data' },
+        { name: 'CSV Editor', path: '/csv/visualize', description: 'Edit & visualize' }
+      ]
+    },
+    json: {
+      title: 'JSON Tools',
+      items: [
+        { name: 'JSON Formatter', path: '/json/format', description: 'Beautify JSON' },
+        { name: 'JSON Validator', path: '/json/validate', description: 'Validate structure' },
+        { name: 'JSON to CSV', path: '/json/to-csv', description: 'Convert to CSV' },
+        { name: 'JSON Mapper', path: '/json/map', description: 'Transform schema' },
+        { name: 'JSON Editor', path: '/json/edit', description: 'Visual editor' }
+      ]
+    },
+    edi: {
+      title: 'EDI Tools',
+      items: [
+        { name: 'EDI Parser', path: '/edi/parse', description: 'Parse EDI files' },
+        { name: 'EDI to JSON', path: '/edi/to-json', description: 'Convert to JSON' },
+        { name: 'EDI Validator', path: '/edi/validate', description: 'Validate X12/EDIFACT' },
+        { name: 'EDI Mapper', path: '/edi/map', description: 'Map EDI segments' },
+        { name: 'EDI Generator', path: '/edi/generate', description: 'Generate EDI' }
+      ]
+    }
+  };
+
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 px-4 md:px-6 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md shadow-soft py-2' 
-          : 'bg-white dark:bg-neutral-900 py-4'
-      }`}
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 px-4 md:px-6 transition-all duration-300 ${scrolled
+        ? 'bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md shadow-soft py-2'
+        : 'bg-white dark:bg-neutral-900 py-4'
+        }`}
     >
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img 
-            src={logo} 
-            alt="Mapverter Logo" 
-            className="h-10 w-auto dark:brightness-0 dark:invert" 
+          <img
+            src={logo}
+            alt="Mapverter Logo"
+            className="h-10 w-auto dark:brightness-0 dark:invert"
           />
           <span className="ml-2 text-xl font-bold text-blue-811 dark:text-blue-811 hidden md:block">
             Mapverter
           </span>
         </Link>
-        
+
         {/* Mobile menu button */}
         <button
           className="md:hidden p-2 rounded-lg text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
@@ -179,38 +283,44 @@ const Navbar = () => {
             )}
           </svg>
         </button>
-        
+
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`font-medium transition-colors ${
-                location.pathname === link.path 
-                  ? 'text-neutral-900 dark:text-neutral-100' 
-                  : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100'
-              }`}
+              className={`font-medium transition-colors ${location.pathname === link.path
+                ? 'text-neutral-900 dark:text-neutral-100'
+                : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100'
+                }`}
             >
               {link.name}
             </Link>
           ))}
-          <FeatureDropdown />
+          {/* <FeatureDropdown /> */}
+          {/* Tool Dropdowns */}
+          {Object.entries(toolMenus).map(([key, menu]) => (
+            <ToolDropdown
+              key={key}
+              title={menu.title}
+              items={menu.items}
+            />
+          ))}
         </div>
-        
+
         {/* Auth Controls */}
         <div className="hidden md:flex items-center space-x-4">
           <ThemeToggle />
-          
+
           {isAuthenticated ? (
             <>
-              <Link 
-                to="/dashboard" 
-                className={`font-medium transition-colors ${
-                  location.pathname === '/dashboard' 
-                    ? 'text-neutral-900 dark:text-neutral-100' 
-                    : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100'
-                }`}
+              <Link
+                to="/dashboard"
+                className={`font-medium transition-colors ${location.pathname === '/dashboard'
+                  ? 'text-neutral-900 dark:text-neutral-100'
+                  : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100'
+                  }`}
               >
                 Dashboard
               </Link>
@@ -218,37 +328,32 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              {/* <Link to="/upload">
-                <Button 
-                  variant="secondary" 
-                  size="sm"
-                  className="hidden sm:inline-flex"
-                >
-                  Upload CSV
-                </Button>
-              </Link>
-              <Link to="/login">
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  className="hidden lg:inline-flex"
-                >
-                  Log In
-                </Button>
-              </Link>
-              <Link to="/signup">
-                <Button 
-                  variant="primary" 
-                  size="sm"
-                >
-                  Sign Up
-                </Button>
-              </Link> */}
+              {import.meta.env.isActiveSignupFeatures && (
+                <>
+                  <Link to="/login">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                    >
+                      Log In
+                    </Button>
+                  </Link>
+                  <Link to="/signup">
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      className="bg-blue-811 hover:bg-blue-900 dark:bg-blue-600 dark:hover:bg-blue-700"
+                    >
+                      Sign Up
+                    </Button>
+                  </Link>
+                </>
+              )}
             </>
           )}
         </div>
       </div>
-      
+
       {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="md:hidden mt-4 pb-4 border-t border-neutral-200 dark:border-neutral-700">
@@ -257,17 +362,39 @@ const Navbar = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`block px-4 py-2 font-medium transition-colors ${
-                  location.pathname === link.path 
-                    ? 'text-neutral-900 dark:text-neutral-100 bg-neutral-100 dark:bg-neutral-800' 
-                    : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100'
-                }`}
+                className={`block px-4 py-2 font-medium transition-colors ${location.pathname === link.path
+                  ? 'text-neutral-900 dark:text-neutral-100 bg-neutral-100 dark:bg-neutral-800'
+                  : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100'
+                  }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
-            <div className="px-4 py-2">
+
+            {/* Mobile Tool Menus */}
+            <div className="border-t border-neutral-200 dark:border-neutral-700 pt-2">
+              {Object.entries(toolMenus).map(([key, menu]) => (
+                <div key={key} className="px-4 py-2">
+                  <div className="font-medium text-neutral-900 dark:text-neutral-100 mb-2">{menu.title}</div>
+                  <div className="pl-4 space-y-1">
+                    {menu.items.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className="block py-1 text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="border-t border-neutral-200 dark:border-neutral-700 pt-4 px-4 flex items-center justify-between">
+              <span className="text-sm text-neutral-600 dark:text-neutral-400">Theme</span>
               <ThemeToggle />
             </div>
           </div>
