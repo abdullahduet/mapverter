@@ -22,6 +22,7 @@ const Button = ({
     primary: 'bg-neutral-900 text-white hover:bg-neutral-800 focus:ring-neutral-900 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200 dark:focus:ring-neutral-100 disabled:opacity-50 disabled:cursor-not-allowed',
     secondary: 'bg-green-600 text-white hover:bg-green-700 focus:ring-green-600 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed',
     outline: 'border-2 border-neutral-300 text-neutral-700 hover:bg-neutral-50 focus:ring-neutral-500 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-800 dark:focus:ring-neutral-400 disabled:opacity-50 disabled:cursor-not-allowed',
+    outlineExt: 'border-2 border-current hover:bg-current hover:text-white dark:hover:text-neutral-900 focus:ring-current disabled:opacity-50 disabled:cursor-not-allowed transition-all',
     ghost: 'text-neutral-700 hover:bg-neutral-100 focus:ring-neutral-500 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:focus:ring-neutral-400 disabled:opacity-50 disabled:cursor-not-allowed',
     success: 'bg-green-600 text-white hover:bg-green-700 focus:ring-green-600 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed',
     error: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-600 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed',
@@ -70,7 +71,7 @@ const Button = ({
 
 Button.propTypes = {
   children: PropTypes.node.isRequired,
-  variant: PropTypes.oneOf(['primary', 'secondary', 'outline', 'ghost', 'success', 'error']),
+  variant: PropTypes.oneOf(['primary', 'secondary', 'outline', 'outlineExt', 'ghost', 'success', 'error']),
   size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
   onClick: PropTypes.func,
