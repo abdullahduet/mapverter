@@ -16,6 +16,8 @@ import LoadingScreen from './components/common/LoadingScreen';
 // Lazy load pages
 const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
+const Templates = lazy(() => import('./pages/Templates'));
+const Contact = lazy(() => import('./pages/Contact'));
 const MapperPage = lazy(() => import('./pages/MapperPage'));
 const ConverterPage = lazy(() => import('./pages/ConverterPage'));
 const GeneratorPage = lazy(() => import('./pages/GeneratorPage'));
@@ -46,6 +48,18 @@ function App() {
               <Route path="/about" element={
                 <MainLayout>
                   <About />
+                </MainLayout>
+              } />
+
+              <Route path="/templates" element={
+                <MainLayout>
+                  <Templates />
+                </MainLayout>
+              } />
+
+              <Route path="/contact" element={
+                <MainLayout>
+                  <Contact />
                 </MainLayout>
               } />
 
