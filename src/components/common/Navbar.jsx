@@ -211,8 +211,36 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
+    {
+      name: 'CSV Tools', key: 'csv', items: [
+        { name: 'CSV Generator', path: '/csv/generate', description: 'Create custom CSV files with sample data' },
+        { name: 'CSV Mapper', path: '/csv/map', description: 'Transform CSV structure' },
+        { name: 'CSV Converter', path: '/csv/convert', description: 'Convert to other formats' },
+        { name: 'CSV Validator', path: '/csv/validate', description: 'Check CSV data integrity' },
+        { name: 'CSV Editor', path: '/csv/visualize', description: 'Edit & visualize' }
+      ]
+    },
+    {
+      name: 'JSON Tools', key: 'json', items: [
+        { name: 'JSON Generator', path: '/json/generate', description: 'Create JSON with structured data' },
+        { name: 'JSON Mapper', path: '/json/map', description: 'Transform JSON schema' },
+        { name: 'JSON Converter', path: '/json/convert', description: 'Convert to other formats' },
+        { name: 'JSON Formatter', path: '/json/format', description: 'Validate JSON schema & Beautify JSON' },
+        { name: 'JSON Editor', path: '/json/visualize', description: 'Visual editor' }
+      ]
+    },
+    {
+      name: 'EDI Tools', key: 'edi', items: [
+        { name: 'EDI Generator', path: '/edi/generate', description: 'Create EDI documents' },
+        { name: 'EDI Mapper', path: '/edi/map', description: 'Map EDI segments' },
+        { name: 'EDI Converter', path: '/edi/convert', description: 'Convert to other formats' },
+        { name: 'EDI Validator', path: '/edi/validate', description: 'Validate EDI compliance' },
+        { name: 'EDI Parser', path: '/edi/parse', description: 'Parse EDI files' }
+      ]
+    },
     { name: 'Templates', path: '/templates' },
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' },
   ];
 
   const toolMenus = {
@@ -287,26 +315,32 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
           {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`font-medium transition-colors ${location.pathname === link.path
-                ? 'text-neutral-900 dark:text-neutral-100'
-                : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100'
-                }`}
-            >
-              {link.name}
-            </Link>
+            link.path ?
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`font-medium transition-colors ${location.pathname === link.path
+                  ? 'text-neutral-900 dark:text-neutral-100'
+                  : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100'
+                  }`}
+              >
+                {link.name}
+              </Link>
+              : <ToolDropdown
+                key={link.key}
+                title={link.name}
+                items={link.items}
+              />
           ))}
           {/* <FeatureDropdown /> */}
           {/* Tool Dropdowns */}
-          {Object.entries(toolMenus).map(([key, menu]) => (
+          {/* {Object.entries(toolMenus).map(([key, menu]) => (
             <ToolDropdown
               key={key}
               title={menu.title}
               items={menu.items}
             />
-          ))}
+          ))} */}
         </div>
 
         {/* Auth Controls */}
