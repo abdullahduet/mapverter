@@ -20,6 +20,8 @@ const Templates = lazy(() => import('./pages/Templates'));
 const Contact = lazy(() => import('./pages/Contact'));
 const FAQ = lazy(() => import('./pages/FAQ'));
 const Demo = lazy(() => import('./pages/Demo'));
+const Changelog = lazy(() => import('./pages/Changelog'));
+const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
 const MapperPage = lazy(() => import('./pages/MapperPage'));
 const ConverterPage = lazy(() => import('./pages/ConverterPage'));
 const GeneratorPage = lazy(() => import('./pages/GeneratorPage'));
@@ -74,6 +76,18 @@ function App() {
               <Route path="/demo" element={
                 <MainLayout>
                   <Demo />
+                </MainLayout>
+              } />
+
+              <Route path="/changelog" element={
+                <MainLayout>
+                  <Changelog />
+                </MainLayout>
+              } />
+
+              <Route path="/cookie-policy" element={
+                <MainLayout>
+                  <CookiePolicy />
                 </MainLayout>
               } />
 
