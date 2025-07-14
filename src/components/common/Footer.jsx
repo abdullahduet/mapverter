@@ -126,6 +126,12 @@ const Footer = () => {
             >
               Cookie Policy
             </Link>
+            <Link 
+              to="/faq" 
+              className="text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors"
+            >
+              FAQ
+            </Link>
           </div>
         </div>
       </div>
