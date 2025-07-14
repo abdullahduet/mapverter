@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import SEOHead from '../components/common/SEOHead';
 import Button from '../components/common/Button';
 
@@ -35,15 +36,35 @@ const Contact = () => {
     setSubmitStatus(null);
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // EmailJS configuration - replace with your actual EmailJS credentials
+      const emailParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        reason: formData.reason || 'General Inquiry',
+        message: formData.message,
+        to_email: 'abdullaalmamun.duet@gmail.com'
+      };
+
+      // Option 1: Using EmailJS (requires EmailJS account setup)
+      await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', emailParams, 'YOUR_PUBLIC_KEY');
       
-      // In real implementation, send to your backend
-      console.log('Form submitted:', formData);
+      // Option 2: Using your backend API
+    //   const response = await fetch('/api/contact', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(formData)
+    //   });
+
+    //   if (!response.ok) {
+    //     throw new Error('Failed to send message');
+    //   }
       
       setSubmitStatus('success');
       setFormData({ name: '', email: '', reason: '', message: '' });
     } catch (error) {
+      console.error('Error sending message:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -82,7 +103,7 @@ const Contact = () => {
       title: 'Connect on LinkedIn',
       description: 'Follow us for updates and insights',
       contact: 'linkedin.com/company/mapverter',
-      href: 'https://linkedin.com/company/mapverter'
+      href: 'https://www.linkedin.com/company/mapverter'
     }
   ];
 
@@ -122,7 +143,12 @@ const Contact = () => {
                     Send us a Message
                   </h2>
                   
-                  <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+                  <form 
+                  action="https://formsubmit.co/abdullaalmamun.duet@gmail.com"
+                  method="POST"
+                //   onSubmit={handleSubmit}
+                  className="space-y-6"
+                  noValidate>
                     {/* Name Field */}
                     <div>
                       <label 
@@ -238,6 +264,13 @@ const Contact = () => {
                       </div>
                     )}
 
+                    {/* Hidden input to disable captcha */}
+                    <input type="hidden" name="_captcha" value="true" />
+                    {/* Redirect after success (optional) */}
+                    <input type="hidden" name="_next" value="http://localhost:3000/contact" />
+                    <input type="hidden" name="_subject" value="Support Request" />
+                    <input type="hidden" name="_template" value="box" />
+
                     {/* Submit Button */}
                     <Button
                       type="submit"
@@ -302,13 +335,16 @@ const Contact = () => {
                       Check out our documentation and FAQ section for instant solutions to common questions.
                     </p>
                     <div className="flex gap-3">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="border-blue-600 text-blue-600 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20"
-                      >
-                        View FAQ
-                      </Button>
+                      <Link to="/faq">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-blue-600 text-blue-600 hover:bg-blue-50 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/20"
+                        >
+                          View FAQ
+                        </Button>
+                      </Link>
+                      
                       <Button
                         variant="outline"
                         size="sm"

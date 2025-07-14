@@ -621,7 +621,7 @@ const Home = () => {
                 Start Processing
               </Button>
             </Link>
-            <Link to="/samples">
+            <Link to="/csv/generate">
               <Button
                 variant="outline"
                 size="lg"
@@ -631,11 +631,9 @@ const Home = () => {
               </Button>
             </Link>
           </div>
-          {import.meta.env.isActiveCTASection && (
-            <p className="mt-6 text-sm text-blue-100">
-              Free plan available • No credit card required • Cancel anytime
-            </p>
-          )}
+          <p className="mt-6 text-sm text-blue-100">
+            Export unlimited • Secure & Private • Lightning Fast
+          </p>
         </div>
       </section>
     </>

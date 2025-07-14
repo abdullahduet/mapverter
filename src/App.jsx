@@ -18,6 +18,8 @@ const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Templates = lazy(() => import('./pages/Templates'));
 const Contact = lazy(() => import('./pages/Contact'));
+const FAQ = lazy(() => import('./pages/FAQ'));
+const Demo = lazy(() => import('./pages/Demo'));
 const MapperPage = lazy(() => import('./pages/MapperPage'));
 const ConverterPage = lazy(() => import('./pages/ConverterPage'));
 const GeneratorPage = lazy(() => import('./pages/GeneratorPage'));
@@ -60,6 +62,18 @@ function App() {
               <Route path="/contact" element={
                 <MainLayout>
                   <Contact />
+                </MainLayout>
+              } />
+
+              <Route path="/faq" element={
+                <MainLayout>
+                  <FAQ />
+                </MainLayout>
+              } />
+
+              <Route path="/demo" element={
+                <MainLayout>
+                  <Demo />
                 </MainLayout>
               } />
 
