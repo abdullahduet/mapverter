@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
-import { HelmetProvider } from 'react-helmet-async';
+
 import { store } from './redux/store';
 
 // Layouts
@@ -39,7 +39,6 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 function App() {
   return (
     <Provider store={store}>
-      <HelmetProvider>
         <BrowserRouter>
           <Suspense fallback={<LoadingScreen />}>
             <Routes>
@@ -167,7 +166,6 @@ function App() {
             </Routes>
           </Suspense>
         </BrowserRouter>
-      </HelmetProvider>
     </Provider>
   );
 }

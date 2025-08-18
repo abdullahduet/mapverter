@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet-async';
 
 const SEOHead = ({
   title,
@@ -40,7 +39,7 @@ const SEOHead = ({
   const structuredData = jsonLd || defaultJsonLd;
 
   return (
-    <Helmet>
+    <>
       {/* Basic Meta Tags */}
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
@@ -71,7 +70,7 @@ const SEOHead = ({
       <meta name="application-name" content="Mapverter" />
       <meta name="apple-mobile-web-app-title" content="Mapverter" />
       <meta name="theme-color" content="#2c5282" />
-    </Helmet>
+    </>
   );
 };
 
