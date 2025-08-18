@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/images/logo-1.svg';
+import logo from '../../assets/images/logo.svg';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -42,7 +42,7 @@ const Footer = () => {
               <img 
                 src={logo} 
                 alt="Mapverter Logo" 
-                className="h-10 w-auto dark:brightness-0 dark:invert" 
+                className="h-10 w-auto" 
               />
               <span className="ml-2 text-xl font-bold text-neutral-900 dark:text-neutral-100">
                Mapverter

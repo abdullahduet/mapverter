@@ -4,7 +4,7 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import { selectIsAuthenticated, selectUser } from '../../redux/slices/authSlice';
 import ProfileDropdown from '../auth/ProfileDropdown';
 import Button from './Button';
-import logo from '../../assets/images/logo-1.svg';
+import logo from '../../assets/images/logo.svg';
 import { features } from '../../data/featuresData';
 
 // Feature dropdown component
@@ -289,7 +289,7 @@ const Navbar = () => {
           <img
             src={logo}
             alt="Mapverter Logo"
-            className="h-10 w-auto dark:brightness-0 dark:invert"
+            className="h-10 w-auto"
           />
           <span className="ml-2 text-xl font-bold text-blue-811 dark:text-blue-811 hidden md:block">
             Mapverter
