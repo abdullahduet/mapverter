@@ -33,30 +33,30 @@ const Footer = () => {
   ];
   
   return (
-    <footer className="bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300 pt-12 pb-6 border-t border-neutral-200 dark:border-neutral-800">
+    <footer className="bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 pt-16 pb-8 border-t border-slate-200 dark:border-slate-700">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-8 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-12 mb-12">
           {/* Brand Column */}
           <div className="md:col-span-2">
-            <Link to="/" className="flex items-center mb-4">
+            <Link to="/" className="flex items-center mb-6">
               <img 
                 src={logo} 
                 alt="Mapverter Logo" 
-                className="h-10 w-auto" 
+                className="h-12 w-auto" 
               />
-              <span className="ml-2 text-xl font-bold text-neutral-900 dark:text-neutral-100">
+              <span className="ml-3 text-2xl font-bold bg-gradient-to-r from-blue-600 via-violet-600 to-emerald-600 dark:from-blue-400 dark:via-violet-400 dark:to-emerald-400 bg-clip-text text-transparent tracking-tight">
                Mapverter
               </span>
             </Link>
-            <p className="text-sm mb-4 text-neutral-600 dark:text-neutral-400 max-w-xs">
-              Streamlined Solutions for Complex Data Mapping and Transformation.
+            <p className="text-sm mb-6 text-slate-600 dark:text-slate-400 max-w-sm leading-relaxed">
+              The most trusted free platform for data transformation. Convert, validate, and generate data across multiple formats.
             </p>
-            <div className="flex space-x-4 mb-6">
+            <div className="flex space-x-5 mb-8">
               <a 
                 href="https://twitter.com/mapverter" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors"
+                className="w-10 h-10 bg-slate-200 dark:bg-slate-800 rounded-lg flex items-center justify-center text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200"
                 aria-label="Twitter"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -67,7 +67,7 @@ const Footer = () => {
                 href="https://linkedin.com/company/mapverter" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors"
+                className="w-10 h-10 bg-slate-200 dark:bg-slate-800 rounded-lg flex items-center justify-center text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200"
                 aria-label="LinkedIn"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -78,7 +78,7 @@ const Footer = () => {
                 href="https://github.com/mapverter" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors"
+                className="w-10 h-10 bg-slate-200 dark:bg-slate-800 rounded-lg flex items-center justify-center text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200"
                 aria-label="GitHub"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -91,13 +91,13 @@ const Footer = () => {
           {/* Footer Navigation Sections */}
           {footerSections.map((section) => (
             <div key={section.title}>
-              <h3 className="text-lg font-semibold mb-4 text-neutral-900 dark:text-neutral-100">{section.title}</h3>
+              <h3 className="text-lg font-semibold mb-6 text-slate-900 dark:text-white">{section.title}</h3>
               <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link.path}>
                     <Link 
                       to={link.path} 
-                      className="text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors"
+                      className="text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -109,26 +109,26 @@ const Footer = () => {
         </div>
         
         {/* Bottom Section */}
-        <div className="border-t border-neutral-200 dark:border-neutral-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4 md:mb-0">
+        <div className="border-t border-slate-200 dark:border-slate-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 md:mb-0">
             © 2025 - {currentYear} Mapverter. All rights reserved.
           </p>
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-3">
             <Link 
               to="/changelog" 
-              className="text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors"
+              className="text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors font-medium"
             >
               Changelog
             </Link>
             <Link 
               to="/cookie-policy" 
-              className="text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors"
+              className="text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors font-medium"
             >
               Cookie Policy
             </Link>
             <Link 
               to="/faq" 
-              className="text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors"
+              className="text-sm text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors font-medium"
             >
               FAQ
             </Link>

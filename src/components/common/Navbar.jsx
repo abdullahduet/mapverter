@@ -279,8 +279,8 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 px-4 md:px-6 transition-all duration-300 ${scrolled
-        ? 'bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md shadow-soft py-2'
-        : 'bg-white dark:bg-neutral-900 py-4'
+        ? 'bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-lg border-b border-slate-200/50 dark:border-slate-700/50 py-2'
+        : 'bg-white dark:bg-slate-900 py-4 border-b border-slate-200 dark:border-slate-700'
         }`}
     >
       <div className="container mx-auto flex justify-between items-center">
@@ -291,14 +291,14 @@ const Navbar = () => {
             alt="Mapverter Logo"
             className="h-10 w-auto"
           />
-          <span className="ml-2 text-xl font-bold text-blue-811 dark:text-blue-811 hidden md:block">
+          <span className="ml-2 text-xl font-bold bg-gradient-to-r from-blue-600 via-violet-600 to-emerald-600 dark:from-blue-400 dark:via-violet-400 dark:to-emerald-400 bg-clip-text text-transparent hidden md:block tracking-tight">
             Mapverter
           </span>
         </Link>
 
         {/* Mobile menu button */}
         <button
-          className="md:hidden p-2 rounded-lg text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+          className="md:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={mobileMenuOpen}
